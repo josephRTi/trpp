@@ -1,6 +1,7 @@
 from repositories.users import UserRepository
 from repositories.roles import RoleRepository
 from repositories.category import CategoryRepository
+from repositories.product import ProductRepository
 from db.base import database
 
 
@@ -14,3 +15,7 @@ def get_roles_repository() -> RoleRepository:
 
 def get_category_repository() -> CategoryRepository:
     return CategoryRepository(database)
+
+
+def get_product_repository() -> ProductRepository:
+    return ProductRepository(database)

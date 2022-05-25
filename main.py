@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 from db.base import database
 import uvicorn
-from endpoints import users, auth, roles, category
+from endpoints import users, auth, roles, category, product
 
 app = FastAPI(title="Shop")
 app.include_router(users.router, prefix="/users", tags=["users"])
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(roles.router, prefix="/role", tags=["role"])
 app.include_router(category.router, prefix="/category", tags=["category"])
+app.include_router(product.router, prefix="/product", tags=["product"])
 
 
 
