@@ -1,9 +1,11 @@
 from starlette.config import Config
 
+from var import DB_USER, DB_PWD, DB_HOST, DB_PORT, DB_NAME
+
 config = Config(".env")
 
-DATABASE_URL = config("DATABASE_URL", cast=str, default="")
-
+# DATABASE_URL = config("DATABASE_URL", cast=str, default="0.0.0.0")
+DATABASE_URL = f'postgresql+psycopg2://{DB_USER}:{DB_PWD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 ALGORITHM = "HS256"

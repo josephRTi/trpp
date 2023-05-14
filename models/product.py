@@ -1,11 +1,12 @@
 from pydantic import BaseModel, AnyUrl
+from typing import Optional
 
 
 class Product(BaseModel):
-    id: int
+    id: Optional[str] = None
     name: str
     description: str
-    image: AnyUrl
+    image: Optional[AnyUrl] = None
     price: int
     category_id: int
 
@@ -13,6 +14,6 @@ class Product(BaseModel):
 class ProductIn(BaseModel):
     name: str
     description: str
-    image: AnyUrl
+    image: Optional[AnyUrl] = None
     price: int
     category_id: int

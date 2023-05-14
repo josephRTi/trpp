@@ -1,5 +1,8 @@
 import datetime
 from typing import List, Optional
+
+from asyncpg import Record
+
 from models.user import User, UserIn
 from core.security import hash_password
 from .base import BaseRepository
@@ -7,7 +10,7 @@ from db.users import users
 
 
 class UserRepository(BaseRepository):
-    async def get_all(self, limit: int = 100, skip: int = 0) -> List[User]:
+    async def get_all(self, limit: int = 100, skip: int = 0) -> List[Record]:
         query = users.select().limit(limit).offset(skip)
         return await self.database.fetch_all(query=query)
 

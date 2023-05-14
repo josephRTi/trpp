@@ -1,3 +1,4 @@
+from repositories.order import OrderRepository
 from repositories.users import UserRepository
 from repositories.roles import RoleRepository
 from repositories.category import CategoryRepository
@@ -19,3 +20,11 @@ def get_category_repository() -> CategoryRepository:
 
 def get_product_repository() -> ProductRepository:
     return ProductRepository(database)
+
+
+def get_role_repository() -> RoleRepository:
+    return RoleRepository(database)
+
+
+def get_order_repository() -> OrderRepository:
+    return OrderRepository(database)

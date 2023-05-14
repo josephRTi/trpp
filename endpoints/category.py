@@ -11,6 +11,7 @@ router = APIRouter()
 
 @router.get("/", response_model=List[Category])
 async def category(categories: CategoryRepository = Depends(get_category_repository)):
+    print('get categories')
     return await categories.get_all_parent()
 
 
@@ -29,6 +30,11 @@ async def get_child_categories(id: int, categories: CategoryRepository = Depends
     return await categories.get_by_parent_id(parent_id=id)
 
 
-@router.get("/", response_model=Category)
+@router.get("/get_by_id", response_model=Category)
 async def get_by_id(id: int, categories: CategoryRepository = Depends(get_category_repository)):
     return await categories.get_by_id(id=id)
+
+
+@router.delete("/delete")
+async def del_by_id(id: int, categories: CategoryRepository = Depends(get_category_repository)):
+    return await categories.delete(id=id)

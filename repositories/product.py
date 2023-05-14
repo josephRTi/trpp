@@ -10,7 +10,7 @@ class ProductRepository(BaseRepository):
         return await self.database.fetch_all(query=query)
 
     async def get_by_id(self, id: int) -> Optional[Product]:
-        query = product.select().where(product.c.id == id).first()
+        query = product.select().where(product.c.id == id)
         item = await self.database.fetch_one(query=query)
         if item is None:
             return None
@@ -45,3 +45,8 @@ class ProductRepository(BaseRepository):
         query = product.update().where(product.c.id == id).values(**values)
         await self.database.execute(query=query)
         return item
+
+    async def delete(self, id: int):
+        query = product.delete().where(product.c.id == id)
+        await self.database.execute(query=query)
+        return 200

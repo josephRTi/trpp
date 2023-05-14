@@ -22,3 +22,8 @@ async def create_role(role: RoleIn, roles: RoleRepository = Depends(get_roles_re
 @router.put("/", response_model=Role)
 async def update_role(id: int, role: RoleIn, roles: RoleRepository = Depends(get_roles_repository)):
     return await roles.update(id=id, r=role)
+
+
+@router.get('/user_roles', response_model=List[Role])
+async def get_user_roles(user_id: int, roles: RoleRepository = Depends(get_roles_repository)):
+    return await roles.get_user_roles(user_id=user_id)

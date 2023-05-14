@@ -1,5 +1,8 @@
 import datetime
 from typing import List, Optional
+
+from databases.interfaces import Record
+
 from models.category import Category, CategoryIn
 from core.security import hash_password
 from .base import BaseRepository
@@ -7,16 +10,16 @@ from db.category import category
 
 
 class CategoryRepository(BaseRepository):
-    async def get_all_parent(self) -> List[Category]:
-        query = category.select().where(category.c.parent_id is None)
+    async def get_all_parent(self) -> list[Record]:
+        query = category.select().where(category.c.parent_id == None)
         return await self.database.fetch_all(query=query)
 
-    async def get_by_parent_id(self, parent_id: int) -> List[Category]:
+    async def get_by_parent_id(self, parent_id: int) -> list[Record]:
         query = category.select().where(category.c.parent_id == parent_id)
         return await self.database.fetch_all(query=query)
 
     async def get_by_id(self, id: int) -> Optional[Category]:
-        query = category.select().where(category.c.id == id).first()
+        query = category.select().where(category.c.id == id)
         item = await self.database.fetch_one(query=query)
         if item is None:
             return None
@@ -45,4 +48,9 @@ class CategoryRepository(BaseRepository):
         query = category.update().where(category.c.id == id).values(**values)
         await self.database.execute(query=query)
         return item
+
+    async def delete(self, id: int):
+        query = category.delete().where(category.c.id == id)
+        await self.database.execute(query=query)
+        return 200
 
